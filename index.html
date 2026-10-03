@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Invoice</title>
+    <style type="text/css">
+      :root {
+        --primary: #0f2339;
+        --primary-2: #16314f;
+        --gold: #b78a4a;
+        --gold-soft: #d7b77f;
+        --ivory: #f7f3ee;
+        --panel: #f2eee7;
+        --line: #d9c9af;
+        --text: #1e2a38;
+        --muted: #5f6f7d;
+        --heading: #12263d;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #f3efe8 0%, #efe8df 100%);
+        color: var(--text);
+      }
+
+      .wrapper {
+        max-width: 840px;
+        margin: 26px auto;
+        padding: 0 14px;
+      }
+
+      .page {
+        background: #fff;
+        border: 1px solid #e8e0d4;
+        border-radius: 14px;
+        padding: 26px 26px 20px;
+        box-shadow: 0 10px 28px rgba(18, 30, 44, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .page::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 6px;
+        background: linear-gradient(180deg, var(--gold) 0%, var(--gold-soft) 100%);
+      }
+
+      .flex-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .muted { color: var(--muted); }
+      .small { font-size: 11px; }
+
+      .section-title {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 6px;
+        color: var(--heading);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+
+      thead th {
+        padding: 9px 8px;
+        border-bottom: 2px solid var(--gold);
+        background: linear-gradient(180deg, #f6f1eb 0%, #f0e7dc 100%);
+        text-align: left;
+        color: var(--heading);
+        font-weight: 700;
+      }
+
+      tbody td {
+        padding: 9px 8px;
+        border-bottom: 1px solid #eadfcd;
+        vertical-align: top;
+        color: var(--text);
+      }
+
+      .totals-table td {
+        padding: 4px 6px;
+      }
+
+      .totals-table tr:last-child td {
+        padding-top: 8px;
+        border-top: 2px solid var(--primary);
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 24px;
+        line-height: 1.2;
+        color: var(--primary);
+        letter-spacing: 0.02em;
+      }
+
+      .company-block {
+        margin-top: 4px;
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--primary);
+      }
+
+      .company-block b {
+        color: var(--primary-2);
+      }
+
+      .invoice-meta {
+        text-align: right;
+        font-size: 12px;
+        color: var(--primary);
+      }
+
+      .invoice-meta .muted {
+        margin-top: 4px;
+      }
+
+      .invoice-total-box {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+        color: #fff;
+        padding: 10px 12px;
+        border: 1px solid rgba(183, 138, 74, 0.25);
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 700;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+      }
+
+      .bill-to {
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--text);
+      }
+
+      .section-divider {
+        margin: 16px 0 6px;
+        border-top: 1px solid var(--line);
+        padding-top: 10px;
+      }
+
+      .engagement-text {
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--text);
+      }
+
+      .payment-box {
+        margin-top: 14px;
+        border-top: 1px solid var(--line);
+        padding-top: 10px;
+      }
+
+      .payment-note {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .thank-you {
+        margin-top: 18px;
+        font-size: 12px;
+        color: var(--primary);
+      }
+
+      @media (max-width: 600px) {
+        .page { padding: 20px 18px 16px; }
+        .invoice-meta { text-align: left; margin-top: 12px; }
+        .flex-row { gap: 12px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <section class="page">
+        <div class="flex-row" style="margin-bottom: 18px;">
+          <div>
+            <h1>{accountname}</h1>
+
+            <div class="company-block">
+              <b>Scotia Plaza, </b>
+              <b>40 King Street West,</b>
+              <b>Suite</b>
+              <b>3000,</b>
+              <b>Toronto</b>
+              <b></b>
+            </div>
+
+            <div class="company-block">
+              <b>ON M5H</b>
+              <b>3Y2</b>
+              <b>Canada</b>
+            </div>
+
+            <div class="company-block">
+              <b>Tel: +1 213 461 7219</b>
+            </div>
+
+            <div class="company-block">accounts@accen-ture.org&nbsp;</div>
+          </div>
+
+          <div class="invoice-meta">
+            <div class="muted"><strong>Invoice #:</strong> 000299<br /></div>
+            <div class="muted"><strong>Date:</strong> August 7, 2026<br /></div>
+            <div class="muted"><strong>Due Date:</strong> September 7, 2026<br /></div>
+            <div class="muted"><strong>Client ID:</strong> {company}</div>
+          </div>
+        </div>
+
+        <div class="flex-row" style="gap: 16px; margin-bottom: 18px;">
+          <div style="flex: 1;">
+            <div class="section-title">Bill To</div>
+
+            <div class="bill-to"><strong>{company}</strong><br />Attn: {name}</div>
+          </div>
+
+          <div style="flex: 0 0 190px;">
+            <div class="section-title">Invoice Total</div>
+
+            <div class="invoice-total-box">$38,232.00</div>
+
+            <div class="muted small" style="margin-top: 6px; line-height: 1.5;">
+              Currency: CAD<br />
+              Terms: Net 30<br />
+              Includes 25% Early Payment Discount
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider">
+          <div class="section-title">Engagement Overview</div>
+
+          <div class="engagement-text">
+            <strong>Operational Risk &amp; Governance Advisory Services</strong><br />
+            Advisory engagement focused on strengthening internal controls, risk monitoring frameworks, governance oversight structures, and compliance alignment across enterprise operations.
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Description</th>
+              <th align="center">Qty</th>
+              <th align="right">Rate (CAD)</th>
+              <th align="right">Amount (CAD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Enterprise Risk Assessment</td>
+              <td>Comprehensive review of operational and regulatory risk exposures.</td>
+              <td align="center">1</td>
+              <td align="right">$16,992.00</td>
+              <td align="right">$16,992.00</td>
+            </tr>
+            <tr>
+              <td>Internal Controls Evaluation</td>
+              <td>Testing and documentation of key financial and compliance controls.</td>
+              <td align="center">1</td>
+              <td align="right">$13,632.00</td>
+              <td align="right">$13,632.00</td>
+            </tr>
+            <tr>
+              <td>Governance Framework Advisory</td>
+              <td>Board-level governance recommendations and reporting alignment.</td>
+              <td align="center">1</td>
+              <td align="right">$11,016.00</td>
+              <td align="right">$11,016.00</td>
+            </tr>
+            <tr>
+              <td>Compliance Process Enhancement</td>
+              <td>Optimization of compliance workflows and regulatory reporting cadence.</td>
+              <td align="center">1</td>
+              <td align="right">$9,336.00</td>
+              <td align="right">$9,336.00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
+          <table class="totals-table">
+            <tbody>
+              <tr>
+                <td class="muted">Subtotal</td>
+                <td align="right">$50,976.00</td>
+              </tr>
+              <tr>
+                <td class="muted">Early Payment Discount (25%)</td>
+                <td align="right">–$12,744.00</td>
+              </tr>
+              <tr>
+                <td><strong>Total Due (CAD)</strong></td>
+                <td align="right"><strong>$38,232.00</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="payment-note">Please remit payment as detailed below.</div>
+
+        <div class="payment-box">
+          <div class="section-title">Payment Instructions</div>
+
+          <div style="font-size: 12px; line-height: 1.5; color: var(--text);">Payment Method: Interac e-Transfer/EFT/Wire Transfer Only</div>
+
+          <div style="font-size: 12px; line-height: 1.6; color: var(--text); margin-top: 8px;">
+            Bank Name: ATB Financial<br />
+            Bank Address: 46 130 crystal lane Sherwood Park AB T8H 1S4 Canada<br />
+            Reference No: ACA000299<br />
+            Account Name: Ronald Barry Wiebe<br />
+            Transit Number: 08489<br />
+            Institution Number: 219<br />
+            Designation Number: 0278<br />
+            Routing Number (EFT): 021908489<br />
+            MICR Code: 08489-219<br />
+            Account Number: {accountnumber}<br />
+            Terms: Remittance Must be send to Email: accounts@accen-ture.org
+          </div>
+        </div>
+
+        <div class="thank-you">Thank you for engaging {accountname}. We appreciate the opportunity to support your governance and risk initiatives.</div>
+      </section>
+    </div>
+  </body>
+</html>
